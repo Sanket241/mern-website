@@ -1,12 +1,15 @@
 const Errorhandler = require('../Utilis/Errorhandler');
 const Products = require('../model/productModels')
 const CatchsyncError = require('../middleware/CatchsyncError')
+const ApiFeatures = require('../Utilis/Apifeatures')
 
 
 // GET ALL PRODUCTS
 const getAllProducts= CatchsyncError (async(req,resp)=>{        //this is a unique way to handle try and catch error
-    const products =  await Products.find();
-    resp.status(200).json(products)
+    const resultPerPage = 4
+    const apiFeatures = new ApiFeatures(Products.find(),req.query).search().filter().pagination(resultPerPage)
+    const products = await apiFeatures.query
+    resp.status(200).json({success:true,products})
 })
 
 // UPDATE PRODUCT
