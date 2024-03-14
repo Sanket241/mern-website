@@ -1,12 +1,15 @@
+const Errorhandler = require('../Utilis/Errorhandler');
 const Products = require('../model/productModels')
+const CatchsyncError = require('../middleware/CatchsyncError')
 
-const getAllProducts=async(req,resp)=>{
+
+// GET ALL PRODUCTS
+const getAllProducts= CatchsyncError (async(req,resp)=>{        //this is a unique way to handle try and catch error
     const products =  await Products.find();
     resp.status(200).json(products)
-}
+})
 
 // UPDATE PRODUCT
-
 const updateProducts = async(req,resp)=>{
 try {
     let product = await Products.findById(req.params.id)
@@ -24,6 +27,7 @@ try {
 }
 }
 
+// CREATE PRODUCT
 const createProducts=async(req,resp)=>{
 try {
     const datas = await Products.create(req.body)
@@ -34,7 +38,6 @@ try {
 }
 
 // DELETE PRODUCT
-
 const deleteProducts = async(req,resp)=>{
     try {
         let product = await Products.findById(req.params.id)
@@ -51,15 +54,16 @@ const deleteProducts = async(req,resp)=>{
 
 // GET PRODUCTS DETAILS
 
-const getProductDetails =async(req,resp)=>{
+const getProductDetails =async(req,resp,next)=>{
     try {
         const product = await Products.findById(req.params.id)
         if(!product){
-            resp.status(404).json({message:"Product Not Found", success:false})
+            return next(new Errorhandler("Product Not Found", 404))
         }
         resp.status(200).json({product, success:true})
     } catch (error) {
         resp.status(500).json({message:"Server Error", success:false})
     }
 }
+
 module.exports = {createProducts, getAllProducts, updateProducts, deleteProducts, getProductDetails}

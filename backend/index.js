@@ -14,3 +14,12 @@ const start=async()=>{
     })
 }
 start();
+
+// //unhandled promise rejection
+// process.on("unhandledRejection",(err)=>{
+//     console.log(err.message)
+//     console.log("Shutting down thius server due to unhandled promise rejection")
+//     server.close(()=>{
+//         process.exit(1)
+//     })
+// })
