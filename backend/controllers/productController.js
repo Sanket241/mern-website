@@ -6,10 +6,11 @@ const ApiFeatures = require('../Utilis/Apifeatures')
 
 // GET ALL PRODUCTS
 const getAllProducts= CatchsyncError (async(req,resp)=>{        //this is a unique way to handle try and catch error
-    const resultPerPage = 4
+    const resultPerPage = 4;
+    const productCount = await Products.countDocuments();
     const apiFeatures = new ApiFeatures(Products.find(),req.query).search().filter().pagination(resultPerPage)
     const products = await apiFeatures.query
-    resp.status(200).json({success:true,products})
+    resp.status(200).json({success:true,products,productCount})
 })
 
 // UPDATE PRODUCT
