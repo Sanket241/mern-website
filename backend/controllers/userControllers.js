@@ -40,4 +40,16 @@ const loginUser = catchAsyncErrors(async (req, resp, next) => {
 
 
 })
-module.exports = { registerUser, loginUser }
+
+const logoutUser = catchAsyncErrors(async (req, resp) => {
+    resp.cookie("token", null, {
+        expires: new Date(Date.now()),
+        httpOnly: true
+    });
+    resp.status(200).json({
+        success: true,
+        message: 'Logged out'
+    })
+});
+
+module.exports = { registerUser, loginUser, logoutUser }

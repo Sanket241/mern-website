@@ -1,4 +1,4 @@
-const sendToken = (user, statusCode, res) => {
+const sendToken = (user, statusCode, resp) => {
     const token = user.getJwtToken(); // Generate JWT token for the user
   
     // Options for cookie
@@ -8,7 +8,7 @@ const sendToken = (user, statusCode, res) => {
     };
   
     // Set the cookie with the generated token
-    res.status(statusCode) // Set the HTTP status code
+    resp.status(statusCode) // Set the HTTP status code
        .cookie("token", token, options) // Set the cookie named "token" with the generated token and options
        .json({ // Send JSON response
           success: true, // Indicate success
