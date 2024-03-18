@@ -16,10 +16,10 @@ if(err.code === 11000){
 }
 
 // Validation error
-if(err.name === "ValidationError"){
-    const message = Object.values(err.errors).map(val => val.message);
-    err = new ErrorResponse(message,400);
-}
+// if(err.name === "ValidationError"){
+//     const message = Object.values(err.errors).map(val => val.message);
+//     err = new ErrorResponse(message,400);
+// }
 
 if(err.name === "JsonWebTokenError"){
     const message = `Json web token is invalid. Try again!`;

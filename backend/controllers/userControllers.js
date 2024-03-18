@@ -204,7 +204,7 @@ const deleteUser = catchAsyncErrors(async (req, resp) => {
     // await user.remove();
     resp.status(200).json({
         success:true,
-        user
+        message:'User deleted successfully'
     });
 });
 

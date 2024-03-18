@@ -3,7 +3,7 @@ const ErrorHander = require('../Utilis/Errorhandler')
 const jwt = require('jsonwebtoken')
 const User = require('../model/userModels')
 
-exports. isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
+exports. isAuthenticatedUser = catchAsyncErrors(async (req, resp, next) => {
     const { token } = req.cookies;
   
     if (!token) {
@@ -18,7 +18,7 @@ exports. isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
   });
   
   exports.authorizeRoles = (...roles) => {
-    return (req, res, next) => {
+    return (req, resp, next) => {
       if (!roles.includes(req.user.role)) {
         return next(
           new ErrorHander(
