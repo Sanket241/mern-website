@@ -1,6 +1,6 @@
 const Errorhandler = require('../Utilis/Errorhandler');
-const Products = require('../model/productModels')
 const CatchsyncError = require('../middleware/CatchsyncError')
+const Products = require('../model/productModels')
 const ApiFeatures = require('../Utilis/Apifeatures')
 
 
@@ -110,7 +110,7 @@ const getProductReviews = CatchsyncError(async(req,resp,next)=>{
 
 })
 // Delete review
-const deleteReview = CatchsyncError(async(req,resp)=>{
+const deleteReview = CatchsyncError(async(req,resp,next)=>{
     const product = await Products.findById(req.query.productId)
     if(!product){
         return next(new Errorhandler("Product Not Found", 404))
